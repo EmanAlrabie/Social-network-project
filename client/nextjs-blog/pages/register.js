@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext} from "../context";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Modal } from "antd";
 import Link from "next/link";
 import AuthForm from "../components/forms/AuthForm";
+import { useRouter } from "next/router";
 
 export default function register() {
+  const [state, setState] = useContext(UserContext)
+
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [secret, setSecret] = useState("");
   const [ok, setOk] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +43,8 @@ export default function register() {
       setLoading(false);
     }
   };
+
+  if (state && state.token) {router.push('/')}
   return (
     <div>
       <div className="container">

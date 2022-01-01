@@ -1,6 +1,11 @@
-import Head from 'next/head'
+import Head from "next/head";
+import { UserContext } from "../context";
+import { useContext } from "react";
 
 export default function Home() {
+  const [state, setState] = useContext(UserContext);
+
+  
   return (
     <div className="container">
       <Head>
@@ -10,7 +15,7 @@ export default function Home() {
 
       <main>
         <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome {state && state.user && state.user.name}
         </h1>
 
         <p className="description">
@@ -54,8 +59,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className="logo" />
+          Powered by <img src="/vercel.svg" alt="Vercel" className="logo" />
         </a>
       </footer>
 
@@ -205,5 +209,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }

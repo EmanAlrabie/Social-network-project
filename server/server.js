@@ -2,8 +2,8 @@
 require("dotenv").config();
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors"; //beacuse the fronend and the backend run in diffrent port so we need to cors to prevent errors
-const morgan = require("morgan"); //it doesn't support import suntax
+import cors from "cors"; //beacuse the frontend and the backend run in diffrent port so we need to cors to prevent errors
+const morgan = require("morgan"); //it doesn't support import syntax
 import {readdirSync} from 'fs' // to read all files in directory without need to import every one
 
 
