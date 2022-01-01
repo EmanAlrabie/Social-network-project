@@ -5,7 +5,7 @@ export default function Nav() {
     <div>
       <nav className="nav bg-dark d-flex justify-content-between">
         <Link href="/">
-          <a className="nav-link text-light">Home</a>
+          <a className="nav-link text-light logo">Home</a>
         </Link>
 
         <Link href="/login">

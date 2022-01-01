@@ -3,8 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Modal } from "antd";
 import Link from "next/link";
-import { SyncOutlined } from "@ant-design/icons";
-
+import AuthForm from "../components/forms/AuthForm";
 
 export default function register() {
   const [name, setName] = useState("");
@@ -17,14 +16,16 @@ export default function register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
       setLoading(true);
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API}/register`, {
-        name,
-        email,
-        password,
-        secret,
-      });
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/register`,
+        {
+          name,
+          email,
+          password,
+          secret,
+        }
+      );
       setName("");
       setEmail("");
       setPassword("");
@@ -46,68 +47,18 @@ export default function register() {
         </div>
         <div className="row">
           <div className="col-md-6 offset-md-3">
-            <form onSubmit={handleSubmit}>
-              <div className="form-group ">
-                <label className="text-muted">Name:</label>
-                <input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter your name"
-                />
-              </div>
-              <div className="form-group py-2">
-                <label className="text-muted">Email:</label>
-                <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
-                  className="form-control"
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div className="form-group py-2">
-                <label className="text-muted">Password:</label>
-                <input
-                  autocomplete="true"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                  className="form-control"
-                  placeholder="Enter your password"
-                />
-              </div>
-              <div className="form-group py-2">
-                <label className="text-muted">Pick a qustion:</label>
-                <select className="form-control">
-                  <option> What's your favourite color?</option>
-                  <option> What's your best friend?</option>
-                  <option> What city you were born?</option>
-                </select>
-                <small className="form-text text-muted">
-                  You can use this to rest your password if forgotten.
-                </small>
-              </div>
-              <div className="form-group py-2">
-                <input
-                  value={secret}
-                  onChange={(e) => setSecret(e.target.value)}
-                  type="text"
-                  className="form-control"
-                  placeholder="Write your answer here"
-                />
-              </div>
-              <div className="form-group py-2">
-                <button 
-                disabled={!name || !email || !password || !secret}
-                  type="submit"
-                  className="btn btn-primary col-6 offset-3"
-                >
-                   {loading ? <SyncOutlined spin className="py-1" /> : "Submit"}
-                </button>
-              </div>
-            </form>
+            <AuthForm
+              handleSubmit={handleSubmit}
+              name={name}
+              setName={setName}
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              secret={secret}
+              setSecret={setSecret}
+              loading={loading}
+            />
           </div>
         </div>
       </div>
@@ -124,6 +75,16 @@ export default function register() {
               <a className="btn btn-primary btn-sm">Login</a>
             </Link>
           </Modal>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <p className="text-center"> 
+          Already registered?  {" "}
+          <Link href="/login">
+              <a className="">Login</a>
+            </Link>
+          </p>
         </div>
       </div>
     </div>
