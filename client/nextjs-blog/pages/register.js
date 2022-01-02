@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { UserContext} from "../context";
+import { UserContext } from "../context";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Modal } from "antd";
@@ -8,7 +8,7 @@ import AuthForm from "../components/forms/AuthForm";
 import { useRouter } from "next/router";
 
 export default function register() {
-  const [state, setState] = useContext(UserContext)
+  const [state, setState] = useContext(UserContext);
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -23,15 +23,12 @@ export default function register() {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/register`,
-        {
-          name,
-          email,
-          password,
-          secret,
-        }
-      );
+      const { data } = await axios.post(`/register`, {
+        name,
+        email,
+        password,
+        secret,
+      });
       setName("");
       setEmail("");
       setPassword("");
@@ -44,7 +41,9 @@ export default function register() {
     }
   };
 
-  if (state && state.token) {router.push('/')}
+  if (state && state.token) {
+    router.push("/");
+  }
   return (
     <div>
       <div className="container">
@@ -87,9 +86,9 @@ export default function register() {
       </div>
       <div className="row">
         <div className="col">
-          <p className="text-center"> 
-          Already registered?  {" "}
-          <Link href="/login">
+          <p className="text-center">
+            Already registered?{" "}
+            <Link href="/login">
               <a className="">Login</a>
             </Link>
           </p>

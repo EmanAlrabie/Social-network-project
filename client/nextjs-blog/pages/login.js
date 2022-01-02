@@ -19,17 +19,17 @@ export default function login() {
     e.preventDefault();
     try {
       setLoading(true);
-      const data = await axios.post(`${process.env.NEXT_PUBLIC_API}/login`, {
+      const data = await axios.post(`/login`, {
         email,
         password,
       });
-      // console.log(data.data.newUser);
+      
       // update context
       setState({
         user: data.data.user,
         token: data.data.token,
       });
-
+      // console.log(state.token);
       // save in local storage
       window.localStorage.setItem("auth", JSON.stringify(data.data));
 

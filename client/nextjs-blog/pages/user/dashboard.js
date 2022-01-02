@@ -11,7 +11,7 @@ const Home = () => {
       <div className="container">
         <div className="row">
           <div className="col">
-            <h1 className="display-1 text-center">Dashboard page</h1>
+            <h1 className="display-1 text-center">Name: {state && state.user.name}</h1>
           </div>
         </div>
       </div>
