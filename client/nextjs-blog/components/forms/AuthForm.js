@@ -43,7 +43,7 @@ export default function AuthForm({
         <div className="form-group py-2">
           <label className="text-muted">Password:</label>
           <input
-            autocomplete="true"
+            autoComplete="true"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"

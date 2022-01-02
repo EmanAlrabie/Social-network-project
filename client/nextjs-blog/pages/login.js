@@ -4,16 +4,15 @@ import { useRouter } from "next/router";
 import AuthForm from "../components/forms/AuthForm";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { UserContext} from "../context";
+import { UserContext } from "../context";
 
 export default function login() {
-
   const [email, setEmail] = useState("em1@gmail.com");
   const [password, setPassword] = useState("eman1234");
   const [loading, setLoading] = useState(false);
 
-  const [state, setState] = useContext(UserContext)
-  
+  const [state, setState] = useContext(UserContext);
+
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -27,22 +26,23 @@ export default function login() {
       // console.log(data.data.newUser);
       // update context
       setState({
-        user: data.newUser,
-        token: data.token,
+        user: data.data.user,
+        token: data.data.token,
       });
 
       // save in local storage
       window.localStorage.setItem("auth", JSON.stringify(data.data));
-      
+
       router.push("/user/dashboard");
-      
     } catch (err) {
       toast.error(err.response.data);
       setLoading(false);
     }
   };
 
-  if (state && state.token) {router.push('/')}
+  if (state && state.token) {
+    router.push("/");
+  }
   return (
     <div className="container">
       <div className="row py-5 text-light bg-default-image">
