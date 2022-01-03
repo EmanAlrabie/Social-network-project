@@ -1,10 +1,14 @@
 import React from "react";
-import { SyncOutlined } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export default function AuthForm({
   handleSubmit,
   name,
   setName,
+  username,
+  setUsername,
+  about,
+  setAbout,
   email,
   setEmail,
   password,
@@ -13,6 +17,7 @@ export default function AuthForm({
   setSecret,
   loading,
   page,
+  profileUpdate,
 }) {
   return (
     <div>
@@ -29,7 +34,31 @@ export default function AuthForm({
             />
           </div>
         )}
-
+        {profileUpdate?
+        <>
+        <div className="form-group py-2">
+          <label className="text-muted">Username:</label>
+          <input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            type="text"
+            className="form-control"
+            placeholder="Enter your username"
+          />
+        </div>
+        <div className="form-group py-2">
+          <label className="text-muted">About:</label>
+          <input
+            value={about}
+            onChange={(e) => setAbout(e.target.value)}
+            type="text"
+            className="form-control"
+            placeholder="Write about yourself"
+          />
+        </div>
+        </> : ""
+}
+{!profileUpdate ?
         <div className="form-group py-2">
           <label className="text-muted">Email:</label>
           <input
@@ -40,6 +69,8 @@ export default function AuthForm({
             placeholder="Enter your email"
           />
         </div>
+        : ""
+}
         <div className="form-group py-2">
           <label className="text-muted">Password:</label>
           <input
@@ -85,7 +116,7 @@ export default function AuthForm({
             type="submit"
             className="btn btn-primary col-6 offset-3"
           >
-            {loading ? <SyncOutlined spin className="py-1" /> : "Submit"}
+            {loading ? <LoadingOutlined spin className="py-1" /> : "Submit"}
           </button>
         </div>
       </form>

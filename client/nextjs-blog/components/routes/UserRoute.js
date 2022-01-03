@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { SyncOutlined } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 import { UserContext } from "../../context";
 
 const UserRoute = ({ children }) => {
@@ -34,9 +34,9 @@ const UserRoute = ({ children }) => {
     }, 1000);
 
   return !ok ? (
-    <SyncOutlined
+    <LoadingOutlined
       spin
-      className="d-flex justify-content-center display-1 text-primary p-5"
+      className="d-flex justify-content-center display-1 p-5"
     />
   ) : (
     <>{children}</>

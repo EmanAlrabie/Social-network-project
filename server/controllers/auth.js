@@ -2,9 +2,12 @@ import User from "../models/user";
 import { hashPassword, comparePassword } from "../helpers/auth";
 import jwt from "jsonwebtoken";
 import expressJet from "express-jwt"; //This module provides Express middleware for validating JWT , in another words we need it to verify the token comes from the client side
+import cloudinary from "cloudinary"
+import {nanoid} from "nanoid" // to genrate uniqe username
 
 export const register = async (req, res) => {
   const { name, email, password, secret } = req.body;
+ 
   //valdition
   if (!name) return res.status(400).send("Name is require");
   if (!password || password.length < 6) {
@@ -19,7 +22,7 @@ export const register = async (req, res) => {
 
   const hashedPassword = await hashPassword(password);
 
-  const user = new User({ name, email, password: hashedPassword, secret });
+  const user = new User({ name, email, password: hashedPassword, secret, username: nanoid(7) });
   try {
     await user.save();
     console.log("user register succes");
@@ -74,3 +77,36 @@ export const currentUser = async (req, res) => {
     res.sendStatus(400);
   }
 };
+
+
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key:  process.env.CLOUD_KEY, 
+  api_secret: process.env.CLOUD_SECRET
+});
+
+
+export const uploadImage = async(req, res)=>{
+
+console.log("user id: ",req.user._id);
+// upload images to cloudinary
+try{
+const result = await cloudinary.uploader.upload(req.files.image.path) //return URL and another info about the stored image when success upload
+console.log("upload URL", result);
+
+await User.findByIdAndUpdate(req.user._id, { photo: result.secure_url}, { upsert: true });
+
+const updatedUser= await User.findById(req.user._id)
+
+res.json({
+  user: updatedUser,
+})
+  //public_id: result.public_id
+
+
+}catch(err){
+console.log(err);
+}
+
+}

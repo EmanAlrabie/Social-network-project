@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { UserContext } from "../context";
 import { useRouter } from "next/router";
+import { BarsOutlined } from "@ant-design/icons";
 
 export default function Nav() {
   const [state, setState] = useContext(UserContext);
@@ -19,16 +20,28 @@ export default function Nav() {
           <a className="nav-link text-light logo">Home</a>
         </Link>
         {state !== null ? (
-          <>
-           <Link href="/user/dashboard">
-              <a className="nav-link text-light">
-                {state && state.user && state.user.name}
-              </a>
-            </Link>
-            <a onClick={logout} className="nav-link text-light">
-              Logout
+          <div class="dropdown">
+            <a
+              className="btn text-light dropdown-toggle"
+              role="button"
+              id="dropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {state && state.user && state.user.name}
             </a>
-          </>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li>
+                <Link href="/user/dashboard">
+                  <a className="nav-link text-dark">Dashboard</a>
+                </Link>
+              </li>
+              <a onClick={logout} className="nav-link text-dark">
+                Logout
+              </a>
+            </ul>
+          </div>
         ) : (
           <>
             <Link href="/login">

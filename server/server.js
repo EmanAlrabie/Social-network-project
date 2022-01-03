@@ -22,7 +22,7 @@ mongoose
   });
 
 //middlewares
-app.use(express.json()); //the data transfer between frontend and backend as json
+app.use(express.json()); //it middleware help to get json data.
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
