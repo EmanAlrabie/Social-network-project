@@ -99,11 +99,11 @@ export default function update() {
             {/* upload image */}
             <label className="d-flex justify-content-center h5">
               {profilePhoto && profilePhoto.url ? (
-                <Avatar size={30} src={profilePhoto.url} className="mt-1" />
+                <Avatar size={100} src={profilePhoto.url} className="" />
               ) : uploading ? (
                 <LoadingOutlined className="mt-2" />
               ) : (
-                <UserOutlined className="mt-2" />
+                <UserOutlined style={{ fontSize: '70px' }}  />
               )}
               <input
                 onChange={handleImage}
@@ -128,21 +128,7 @@ export default function update() {
           </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col">
-          <Modal
-            title="Great!"
-            visible={ok}
-            onCancel={() => setOk(false)}
-            footer={null}
-          >
-            <p>You have successfully update your profile!.</p>
-            <Link href="/login">
-              <a className="btn btn-primary btn-sm">Login</a>
-            </Link>
-          </Modal>
-        </div>
-      </div>
+      
     </div>
   );
 }
