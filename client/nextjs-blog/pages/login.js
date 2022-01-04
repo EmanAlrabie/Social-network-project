@@ -31,7 +31,7 @@ export default function login() {
       });
       // console.log(state.token);
       // save in local storage
-      window.localStorage.setItem("auth", JSON.stringify(data.data));
+      window.localStorage.setItem("auth", JSON.stringify(data.data)); //Converts an object string into a JSON .
 
       router.push("/user/dashboard");
     } catch (err) {

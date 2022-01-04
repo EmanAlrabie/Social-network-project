@@ -5,14 +5,16 @@ export default function AuthForm({
   handleSubmit,
   name,
   setName,
-  username,
-  setUsername,
-  about,
-  setAbout,
   email,
   setEmail,
   password,
   setPassword,
+  username,
+  setUsername,
+  about,
+  setAbout,
+  profilePhoto,
+  handleImage,
   secret,
   setSecret,
   loading,
@@ -22,6 +24,25 @@ export default function AuthForm({
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        {/* {profileUpdate ? (
+          <>
+            <div className="form-group py-2">
+              <label className="d-flex justify-content-center">
+                <img
+                  className="h-25 w-50 rounded-circle"
+                  src={profilePhoto}
+                ></img>
+                <input
+                  onChange={(e) => handleImage(e)}
+                  type="file"
+                  accept="images/*"
+                  hidden
+                />
+              </label>
+            </div>
+          </>
+        ) : (          ""        )} */}
+
         {page !== "login" && (
           <div className="form-group ">
             <label className="text-muted">Name:</label>
@@ -34,55 +55,62 @@ export default function AuthForm({
             />
           </div>
         )}
-        {profileUpdate?
-        <>
-        <div className="form-group py-2">
-          <label className="text-muted">Username:</label>
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            type="text"
-            className="form-control"
-            placeholder="Enter your username"
-          />
-        </div>
-        <div className="form-group py-2">
-          <label className="text-muted">About:</label>
-          <input
-            value={about}
-            onChange={(e) => setAbout(e.target.value)}
-            type="text"
-            className="form-control"
-            placeholder="Write about yourself"
-          />
-        </div>
-        </> : ""
-}
-{!profileUpdate ?
-        <div className="form-group py-2">
-          <label className="text-muted">Email:</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            className="form-control"
-            placeholder="Enter your email"
-          />
-        </div>
-        : ""
-}
-        <div className="form-group py-2">
-          <label className="text-muted">Password:</label>
-          <input
-            autoComplete="true"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            className="form-control"
-            placeholder="Enter your password"
-          />
-        </div>
-        {page !== "login" && (
+        {profileUpdate ? (
+          <>
+            <div className="form-group py-2">
+              <label className="text-muted">Username:</label>
+              <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                type="text"
+                className="form-control"
+                placeholder="Enter your username"
+              />
+            </div>
+            <div className="form-group py-2">
+              <label className="text-muted">About:</label>
+              <input
+                value={about}
+                onChange={(e) => setAbout(e.target.value)}
+                type="text"
+                className="form-control"
+                placeholder="Write about yourself"
+              />
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+        {!profileUpdate ? (
+          <>
+            <div className="form-group py-2">
+              <label className="text-muted">Email:</label>
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                className="form-control"
+                placeholder="Enter your email"
+              />
+            </div>
+
+            <div className="form-group py-2">
+              <label className="text-muted">Password:</label>
+              <input
+                autoComplete="true"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                className="form-control"
+                placeholder="Enter your password"
+              />
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+
+        {page !== "login" && !profileUpdate && (
           <>
             <div className="form-group py-2">
               <label className="text-muted">Pick a qustion:</label>
@@ -111,6 +139,8 @@ export default function AuthForm({
             disabled={
               page === "login"
                 ? !email || !password
+                : profileUpdate
+                ? !name || !about || !username
                 : !name || !email || !password || !secret
             }
             type="submit"

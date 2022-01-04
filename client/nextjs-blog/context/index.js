@@ -18,7 +18,7 @@ const UserProvider = ({ children }) => {
   }, []);
 
   const router = useRouter();
- 
+
   // to make it easier:
   const token = state && state.token ? state.token : "";
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API;
