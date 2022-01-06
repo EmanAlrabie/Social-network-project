@@ -44,7 +44,7 @@ export default function update() {
         about,
         profilePhoto
       });
-      console.log("update user: ", data);
+
       if (data.error) {
         toast.error(data.error);
         setLoading(false);

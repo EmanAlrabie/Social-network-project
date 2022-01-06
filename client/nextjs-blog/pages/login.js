@@ -19,23 +19,28 @@ export default function login() {
     e.preventDefault();
     try {
       setLoading(true);
-      const data = await axios.post(`/login`, {
+      const {data} = await axios.post(`/login`, {
         email,
         password,
       });
-      
+      if (data.error) {
+        toast.error(data.error);
+        setLoading(false);
+      } else {
       // update context
       setState({
-        user: data.data.user,
-        token: data.data.token,
+        user: data.user,
+        token: data.token,
       });
       // console.log(state.token);
       // save in local storage
       window.localStorage.setItem("auth", JSON.stringify(data.data)); //Converts an object string into a JSON .
 
       router.push("/user/dashboard");
+    }
     } catch (err) {
-      toast.error(err.response.data);
+      console.log(err);
+      toast.error(err);
       setLoading(false);
     }
   };

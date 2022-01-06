@@ -29,14 +29,20 @@ export default function register() {
         password,
         secret,
       });
+      if (data.error) {
+        toast.error(data.error);
+        setLoading(false);
+      } else {
       setName("");
       setEmail("");
       setPassword("");
       setSecret("");
       setOk(data.ok);
       setLoading(false);
+      }
     } catch (err) {
-      toast.error(err.response.data);
+      console.log(err);
+      toast.error(err);
       setLoading(false);
     }
   };
